@@ -1,4 +1,8 @@
 {
+  "rnpm":{
+    "assets":["./assets/fonts"]
+  },
+
   "name": "tasks",
   "version": "0.0.1",
   "private": true,
@@ -37,4 +41,6 @@
   "jest": {
     "preset": "react-native"
   }
+  
 }
+
