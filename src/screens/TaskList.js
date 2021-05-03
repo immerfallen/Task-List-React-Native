@@ -6,6 +6,8 @@ import commonStyles from '../commonStyles'
 import moment from 'moment'
 import 'moment/locale/pt-br'
 
+import Task from '../components/Task'
+
 export default class TaskList extends Component {
     render() {
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM [de] yyyy')
@@ -18,9 +20,8 @@ export default class TaskList extends Component {
                     </View>
                 </ImageBackground>
                 <View style={styles.taskList}>
-                    <Text>Tarefa #1</Text>
-                    <Text>Tarefa #2</Text>
-                    <Text>Tarefa #3</Text>
+                   <Task desc="Comprar livro" estimateAt={new Date()} doneAt={new Date()}/>
+                   <Task desc="Estudar C#" estimateAt={new Date()} />
                 </View>
                 
             </View>
