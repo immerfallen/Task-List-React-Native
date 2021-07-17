@@ -9,12 +9,17 @@ import 'moment/locale/pt-br'
 
 
 export default props => {
-    const doneOrNotStyle = props.doneAt != null ? 
-    {textDecorationLine: 'line-through'} : {}
 
-    const date = props.doneAt ? props.doneAt : props.estimateAt
+    const doneOrNotStyle = props.doneAt != null ? 
+    {textDecorationLine: 'line-through'} : {}    
+
+    const date =  props.estimateAt      
 
     const formattedDate = moment(date).locale('pt-br').format('ddd, DD [de] MMMM [de] yyyy')
+    
+    const priority = props.priority
+
+    const lateOrNot = props.estimateAt < Date.now() ? {backgroundColor: 'yellow'} : {}
 
     const getRightContent = () => {
         return (
@@ -41,8 +46,11 @@ export default props => {
                         {getCheckView(props.doneAt)}
                     </View>                
                 </TouchableWithoutFeedback>
-                <View>
-                    <Text style={[styles.desc, doneOrNotStyle]}>{props.desc}</Text>
+                <View style={[styles.containerTasks, lateOrNot]}>
+                    <View style={styles.descAndPrior}>
+                        <Text style={[styles.desc, doneOrNotStyle]}>{props.desc}</Text>
+                        <Text style={styles.prior}> {priority}</Text>
+                    </View>
                     <Text style={styles.date}>{formattedDate}</Text>
                 </View>
                 
@@ -67,6 +75,8 @@ function getCheckView(doneAt){
         }
     }
 
+    
+
 
 const styles = StyleSheet.create({
     container: {
@@ -75,7 +85,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,       
         alignItems: 'center',
         paddingVertical: 10,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        flex: 1
     },
     checkContainer:{
         width: '20%',
@@ -102,12 +113,14 @@ const styles = StyleSheet.create({
     desc:{
         fontFamily: commonStyles.fontFamily,
         color: commonStyles.colors.mainText,
-        fontSize: 15,       
+        fontSize: 15,
+        flex: 4       
     },
     date:{
         fontFamily: commonStyles.fontFamily,
         color: commonStyles.colors.subText,
-        fontSize: 12
+        fontSize: 12,
+        flex: 1
     },
     right: {
         backgroundColor: 'red',
@@ -132,6 +145,21 @@ const styles = StyleSheet.create({
     },
     leftIcon: {
         marginLeft: 10
+    },
+    descAndPrior: {
+        flexDirection: 'row',        
+    },
+    prior: {
+        fontFamily: commonStyles.fontFamily,
+        color: commonStyles.colors.mainText,
+        fontSize: 15,
+        flex: 2,
+        marginLeft: 10,
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end'
+    },
+    containerTasks: {
+        flex: 1,
     }
 })
 

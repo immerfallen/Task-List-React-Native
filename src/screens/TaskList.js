@@ -71,10 +71,14 @@ export default class TaskList extends Component {
             id: Math.random(),
             desc: newTask.desc,
             estimatedAt: newTask.date,
-            doneAt: null
+            doneAt: null,
+            priority: newTask.priority
         })
+        
 
         this.setState({tasks, showAddTask: false }, this.filterTasks)
+        
+       
     }
 
     deleteTask = id => {

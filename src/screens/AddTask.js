@@ -6,7 +6,9 @@ import commonStyles from '../commonStyles'
 import moment from 'moment'
 
 
-const initialState ={ desc: '', date: new Date(), showDatePicker: false}
+const initialState ={ desc: '', date: new Date(), showDatePicker: false, priority: ''}
+
+
 
 export default class AddTask extends Component {
 
@@ -17,17 +19,24 @@ export default class AddTask extends Component {
     save = () => {
         const newTask = {
             desc: this.state.desc,
-            date: this.state.date
+            date: this.state.date,
+            priority: this.state.priority
+            
         }
+        
 
         this.props.onSave && this.props.onSave(newTask)
-        this.setState({...initialState})        
+        this.setState({...initialState})  
+        
+              
     }
+    
 
     getDatePicker = () =>{
         let datePicker = <DateTimePicker value={this.state.date} onChange={(_, date) => this.setState({date:date, showDatePicker: false})} mode='date' />
-
+       
         const dateString = moment(this.state.date).format('dddd, D [de] MMMM [de] YYYY')
+       
 
         if (Platform.OS==='android') {
             datePicker = (
@@ -55,6 +64,7 @@ export default class AddTask extends Component {
                 <View style={styles.container}>
                     <Text style={styles.header}>Nova Tarefa</Text>
                     <TextInput style={styles.input} placeholder='Informe a descrição' onChangeText={desc => this.setState({desc : desc})} value={this.state.desc}/>
+                    <TextInput style={styles.input} placeholder='Informe a prioridade' onChangeText={priority => this.setState({priority : priority})} value={this.state.priority}/>
                     {this.getDatePicker()}
                     <View style={styles.buttons}>
                         <TouchableOpacity onPress={this.props.onCancel}>
@@ -74,6 +84,7 @@ export default class AddTask extends Component {
         )
     }
 }
+
 
 const styles = StyleSheet.create({
     overlay: {
