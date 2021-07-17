@@ -15,6 +15,14 @@ export default class Auth extends Component {
         stageNew: false
     }
 
+    signinOrSignup = () => {
+        if(this.state.stageNew){
+            Alert.alert('Sucesso!', 'Criar conta')
+        } else {
+            Alert.alert('Sucesso!', 'Logar')
+        }
+    }
+
     render (){
         return (
             <ImageBackground source={backgroundImage} style={styles.background}>
@@ -33,13 +41,17 @@ export default class Auth extends Component {
                     <TextInput placeholder='Confirmar Senha' value={this.state.confirmPassword} 
                         style={styles.input} secureTextEntry={true} onChangeText={confirmPassword => this.setState({confirmPassword:confirmPassword})}/>
                     }
-                <TouchableOpacity>
+                <TouchableOpacity onPress={this.signinOrSignup}>
                     <View style={ styles.button}>
                         <Text style={ styles.buttonText}>{this.state.stageNew ? 'Registrar' : 'Entrar' }</Text>
-                    </View>
-                </TouchableOpacity>
-                
+                    </View>                
+                </TouchableOpacity>                
             </View>
+            <TouchableOpacity style={{padding: 10}} onPress={() => this.setState({stageNew: !this.state.stageNew})}>
+                    <Text style={ styles.buttonText}>
+                        {this.state.stageNew ? 'Já possui conta?' : 'Ainda não possui conta?' }
+                    </Text>
+            </TouchableOpacity>
             </ImageBackground>
         )
     }
